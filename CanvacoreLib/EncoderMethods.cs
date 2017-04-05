@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace CanvacoreLib
 {
     public class EncoderMethods
@@ -33,7 +34,7 @@ namespace CanvacoreLib
             //setup
             List<int> values = new List<int>();
 
-            //prepare toEncode object for processing
+            //prepare input string for processing
             var stringToEncode = input.ToLower();
 
             var cipher = SetupCipher(alphabet);
@@ -64,16 +65,11 @@ namespace CanvacoreLib
 
         public static Canvas PrepareForImagifying(Canvas encoded)
         {
-            //if there are no pixels, then set no h w. If theres only 1, set it to 1.
-            if(encoded.Pixels.Count == 0 )
-            {
-                encoded.Height = 0;
-                encoded.Width = 0;
-            }
-            else if (encoded.Pixels.Count == 1 )
+            if (encoded.Pixels.Count <= 1 )
             {
                 encoded.Height = 1;
                 encoded.Width = 1;
+                encoded.PixelCount = 1;
             }
             else
             {
@@ -87,10 +83,21 @@ namespace CanvacoreLib
                 }
                 encoded.Height = Math.Sqrt(encoded.Pixels.Count);
                 encoded.Width = Math.Sqrt(encoded.Pixels.Count);
-                encoded.PixelCount = encoded.Pixels.Count;
+                encoded.PixelCount += encoded.Pixels.Count;
             }
 
             return encoded;
         }
+
+        public static string DecodeCanvas(Canvas encodedCanvas, string charset)
+        {
+            var cipher = SetupCipher(charset);
+            string output = "";
+
+
+
+            return output;
+        }
+
     }
 }
