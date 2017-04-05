@@ -58,7 +58,39 @@ namespace CanvacoreLib
             }
 
             encodedCanvas.Pixels = convertValuesToPixels(values);
+            PrepareForImagifying(encodedCanvas);
             return encodedCanvas;
+        }
+
+        public static Canvas PrepareForImagifying(Canvas encoded)
+        {
+            //if there are no pixels, then set no h w. If theres only 1, set it to 1.
+            if(encoded.Pixels.Count == 0 )
+            {
+                encoded.Height = 0;
+                encoded.Width = 0;
+            }
+            else if (encoded.Pixels.Count == 1 )
+            {
+                encoded.Height = 1;
+                encoded.Width = 1;
+            }
+            else
+            {
+                //need the pixel count to be a sqrt so that we can produce a square image.
+                //Add additional pixel noise to the end to square it off.
+                //TODO: randomize these values so it's not as obvious.
+                while(Math.Sqrt(encoded.Pixels.Count) % 1 != 0)
+                {
+                    //add pixels until we know that the sqrt of the pixel count can produce a square image.
+                    encoded.Pixels.Add(new Pixel() { R = 0, G = 0, B = 0, A = 0 });
+                }
+                encoded.Height = Math.Sqrt(encoded.Pixels.Count);
+                encoded.Width = Math.Sqrt(encoded.Pixels.Count);
+                encoded.PixelCount = encoded.Pixels.Count;
+            }
+
+            return encoded;
         }
     }
 }

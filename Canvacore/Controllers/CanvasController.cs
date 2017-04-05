@@ -10,6 +10,8 @@ namespace Canvacore.Controllers
     [Route("api/canvas")]
     public class CanvasController : Controller
     {
+        string alphabet = "abcdefghijklmnopqrstuvwxyz ,.";
+
         [Route("")]
         [HttpGet]
         public ToEncode Get()
@@ -22,7 +24,6 @@ namespace Canvacore.Controllers
         public IActionResult GetInput(string input) 
         {
             //make this configurable...
-            string alphabet = "abcdefghijklmnopqrstuvwxyz ,.";
             EncoderMethods methods = new EncoderMethods();
             var can = methods.EncodeObject(input, alphabet);
             return Ok(can);

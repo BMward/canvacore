@@ -6,7 +6,8 @@ namespace CanvacoreLib
     public class Canvas
     {
         public List<Pixel> Pixels = new List<Pixel>();
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
+        public int PixelCount { get; set; }
     }
 }
